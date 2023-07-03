@@ -1,0 +1,13 @@
+apiVersion: v1 # versions could include v1 - apps/v1
+kind: Pod      # kind could include Pod - Service - ReplicaSet - Deployment
+metadata:      # metadata is a dictionary
+  name: redis-pod # name and labels are children of metadata
+  labels:         # name and labels are siblings | labels is a nested dictionary
+    name: redis-pod    # app and type are a child of labels
+    app: e-commerce-app
+spec: # specifications dictionary
+  containers:   # can be list or array
+    - name: redis
+      image: redis     # run kubectl create -f
+      ports:
+        - containerPort: 6379

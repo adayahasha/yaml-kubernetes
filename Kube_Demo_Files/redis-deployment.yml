@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment           # kind type = service
+Metadata:
+    name: redis-pod
+    labels:
+      name: redis-pod
+      app: e-commerce-app
+
+spec:
+    replicas: 3
+    selector:
+      matchLabels:
+        name: redis-pod    # app and type are a child of labels
+        app: e-commerce-app
+    templates:
+      metadata: # metadata is a dictionary
+        name: redis-pod # name and labels are children of metadata
+        labels: # name and labels are siblings | labels is a nested dictionary
+          name: redis-pod    # app and type are a child of labels
+          app: e-commerce-app
+      spec: # specifications dictionary
+        containers: # can be list or array
+          - name: redis
+            image: redis     # run kubectl create -f
+            ports:
+              - containerPort: 6379

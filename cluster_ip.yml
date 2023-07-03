@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service           # kind type = service
+Metadata:
+    name: backend-service
+
+spec:
+    type: ClusterIP         # type of service: cluster ip - node port - load balancer - cluster ip is the default type
+    ports:                      # defining port numbers/targets - the only mandatory field is port
+      -   targetPort: 80        # port on the pod - unassigned is allocated with port number given
+          port: 80              # port on the service
+
+    selector:                   # links service to desired pod using labels
+        app: e-commerce-app
+        tier: back-end
+    # kubectl create -f services.yml
+    # kubectl get services

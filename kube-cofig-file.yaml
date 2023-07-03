@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Config
+
+current-context: dev-user@google
+
+clusters:
+- name: my-kube-playground
+- name: development
+- name: production
+- name: google
+  cluster:
+    certificate-authority:  /etc/kubernetes/pki/ca.crt
+    server: https://my-kube-playground:6443
+
+contexts:
+- name: my-kube-admin@my-kube-playground
+- name: dev-user@google
+- name: prod-user@production
+  context:
+    cluster:  my-kube-playground
+    user:
+    namespace: finance
+
+users:
+- name: my-kube-admin
+- name: admin
+- name: dev-user
+- name: prod-user
+  user:
+    client-certificate: /etc/kubernetes/pki/users/admin.crt
+    client-key: /etc/kubernetes/pki/users/admin.key

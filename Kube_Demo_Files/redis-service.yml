@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service           # kind type = service
+Metadata:
+    name: redis
+    labels:
+      name: redis-service
+      app: e-commerce-app
+
+spec:
+    ports:                      # defining port numbers/targets - the only mandatory field is port
+      -   targetPort: 6379        # port on the pod - unassigned is allocated with port number given
+          port: 6379              # port on the service
+    selector:                   # links service to desired pod using labels
+      name: redis-pod    # app and type are a child of labels
+      app: e-commerce-app
+    # kubectl create -f services.yml
+    # kubectl get services
+    # curl http:node ip: nodePort # establishing access to the web server
